@@ -6,7 +6,7 @@ type property = 'body' | 'query' | 'header' | 'params';
 
 type getSchema = <T>(schema: Schema<T>) => Schema<T>;
 
-type allSchemas = Record<property, Schema<any>>;
+type allSchemas = Record<property, Schema<unknown>>;
 
 type getAllSchemas = (getSchema: getSchema) => Partial<allSchemas>;
 

@@ -3,6 +3,8 @@ import { citysController } from '../controllers/controllers';
 
 const router = Router();
 
+router.get('/', (_, res) => res.send('Olá, mundo!'));
+
 router.get('/cidades', citysController.getAllValidator, citysController.getAll);
 
 router.get(
@@ -23,8 +25,10 @@ router.put(
   citysController.updateById
 );
 
-router.get('/', (_, res) => {
-  return res.send('Olá, mundo!');
-});
+router.delete(
+  '/cidades/:id',
+  citysController.deleteByIdValidator,
+  citysController.deleteById
+);
 
 export { router };
