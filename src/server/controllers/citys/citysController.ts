@@ -1,8 +1,9 @@
-import { create, createValidator } from './create';
+import * as create from './create';
+import * as getAll from './getAll';
 
 const citysController = {
-  create,
-  createValidator,
+  ...create,
+  ...getAll,
 };
 
 export { citysController };

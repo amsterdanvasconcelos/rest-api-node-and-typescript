@@ -4,11 +4,16 @@ import { Schema, ValidationError } from 'yup';
 
 type property = 'body' | 'query' | 'header' | 'params';
 
-type allSchemas = Record<property, Schema>;
+type getSchema = <T>(schema: Schema<T>) => Schema<T>;
 
-type tValidation = (schemas: Partial<allSchemas>) => RequestHandler;
+type allSchemas = Record<property, Schema<any>>;
 
-const validation: tValidation = (schemas) => async (req, res, next) => {
+type getAllSchemas = (getSchema: getSchema) => Partial<allSchemas>;
+
+type tValidation = (getAllSchemas: getAllSchemas) => RequestHandler;
+
+const validation: tValidation = (getAllSchemas) => async (req, res, next) => {
+  const schemas = getAllSchemas((schema) => schema);
   let errosResult: Record<string, Record<string, string>> = {};
   const hasErros = () => Object.entries(errosResult).length !== 0;
 

@@ -1,18 +1,30 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { object, string } from 'yup';
+import { number, object, string } from 'yup';
 import { validation } from '../../shared/middlewares/middlewares';
 
-const createValidator = validation({
-  body: object().shape({
-    name: string().required().min(3),
-  }),
+type queyProps = {
+  page?: number;
+  limit?: number;
+  filter?: string;
+};
+
+const querySchema = object().shape({
+  page: number().optional().moreThan(0),
+  limit: number().optional().moreThan(0),
+  filter: string().optional(),
 });
 
-const create = async (req: Request, res: Response) => {
+const getAllValidator = validation((getSchema) => ({
+  query: getSchema<queyProps>(querySchema),
+}));
+
+const getAll = async (req: Request<{}, {}, {}, queyProps>, res: Response) => {
+  console.log(req.query);
+
   return res
     .status(StatusCodes.INTERNAL_SERVER_ERROR)
     .send('Não implementado!');
 };
 
-export { create, createValidator };
+export { getAll, getAllValidator };
