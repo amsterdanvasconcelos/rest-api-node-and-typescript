@@ -7,7 +7,7 @@ describe('Citys - CREATE', () => {
       .post('/cidades')
       .send({ name: 'fortaleza' });
 
-    expect(response.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
+    expect(response.statusCode).toEqual(StatusCodes.CREATED);
     expect(typeof response.body).toEqual('number');
   });
   it('Não cria registro sem mandar a propriedade name.', async () => {
