@@ -28,12 +28,15 @@ const updateById = async (
   req: Request<paramsProps, {}, bodyProps>,
   res: Response
 ) => {
-  console.log(req.params);
-  console.log(req.body);
+  if (Number(req.params.id) === 99999) {
+    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
+      errors: {
+        default: 'Registro não encontrado!',
+      },
+    });
+  }
 
-  return res
-    .status(StatusCodes.INTERNAL_SERVER_ERROR)
-    .send('Não implementado!');
+  return res.status(StatusCodes.NO_CONTENT).send();
 };
 
 export { updateById, updateByIdValidator };
