@@ -3,30 +3,26 @@ import { citysController } from '../controllers/controllers';
 
 const router = Router();
 
-router.get('/', (_, res) => res.send('Olá, mundo!'));
+router.get('/', (_, res) => res.send('Hello, world!'));
 
-router.get('/cidades', citysController.getAllValidator, citysController.getAll);
+router.get('/cities', citysController.getAllValidator, citysController.getAll);
 
 router.get(
-  '/cidades/:id',
+  '/cities/:id',
   citysController.getByIdValidator,
   citysController.getById
 );
 
-router.post(
-  '/cidades',
-  citysController.createValidator,
-  citysController.create
-);
+router.post('/cities', citysController.createValidator, citysController.create);
 
 router.put(
-  '/cidades/:id',
+  '/cities/:id',
   citysController.updateByIdValidator,
   citysController.updateById
 );
 
 router.delete(
-  '/cidades/:id',
+  '/cities/:id',
   citysController.deleteByIdValidator,
   citysController.deleteById
 );
