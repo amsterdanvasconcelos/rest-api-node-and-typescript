@@ -4,12 +4,12 @@ import { testServer } from '../jest.setup';
 describe('Citys - GET_ALL', () => {
   it('Busca todos os registros.', async () => {
     const resCreate = await testServer
-      .post('/cidades')
+      .post('/cities')
       .send({ name: 'fortaleza' });
 
     expect(resCreate.statusCode).toEqual(StatusCodes.CREATED);
 
-    const resGetAll = await testServer.get('/cidades').send();
+    const resGetAll = await testServer.get('/cities').send();
 
     expect(Number(resGetAll.header['x-total-count'])).toBeGreaterThan(0);
     expect(resGetAll.statusCode).toEqual(StatusCodes.OK);

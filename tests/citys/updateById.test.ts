@@ -4,20 +4,20 @@ import { testServer } from '../jest.setup';
 describe('Citys - UPDATE_BY_ID', () => {
   it('Atualiza registro.', async () => {
     const resCreate = await testServer
-      .post('/cidades')
+      .post('/cities')
       .send({ name: 'fortaleza' });
 
     expect(resCreate.statusCode).toEqual(StatusCodes.CREATED);
 
     const resUpdateById = await testServer
-      .put(`/cidades/${resCreate.body}`)
+      .put(`/cities/${resCreate.body}`)
       .send({ name: 'são paulo' });
 
     expect(resUpdateById.statusCode).toEqual(StatusCodes.NO_CONTENT);
   });
   it('Tenta atualizar registro que não existe.', async () => {
     const response = await testServer
-      .put('/cidades/99999')
+      .put('/cities/99999')
       .send({ name: 'fortaleza' });
 
     expect(response.statusCode).toEqual(StatusCodes.INTERNAL_SERVER_ERROR);
