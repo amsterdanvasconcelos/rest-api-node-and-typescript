@@ -2,24 +2,24 @@ import { RequestHandler } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { Schema, ValidationError } from 'yup';
 
-type property = 'body' | 'query' | 'header' | 'params';
+type Property = 'body' | 'query' | 'header' | 'params';
 
-type getSchema = <T>(schema: Schema<T>) => Schema<T>;
+type GetSchema = <T>(schema: Schema<T>) => Schema<T>;
 
-type allSchemas = Record<property, Schema<unknown>>;
+type AllSchemas = Record<Property, Schema<unknown>>;
 
-type getAllSchemas = (getSchema: getSchema) => Partial<allSchemas>;
+type GetAllSchemas = (getSchema: GetSchema) => Partial<AllSchemas>;
 
-type tValidation = (getAllSchemas: getAllSchemas) => RequestHandler;
+type Validation = (getAllSchemas: GetAllSchemas) => RequestHandler;
 
-const validation: tValidation = (getAllSchemas) => async (req, res, next) => {
+const validation: Validation = (getAllSchemas) => async (req, res, next) => {
   const schemas = getAllSchemas((schema) => schema);
   let errosResult: Record<string, Record<string, string>> = {};
   const hasErros = () => Object.entries(errosResult).length !== 0;
 
   Object.entries(schemas).forEach(([key, schema]) => {
     try {
-      schema.validateSync(req[key as property], { abortEarly: false });
+      schema.validateSync(req[key as Property], { abortEarly: false });
     } catch (err) {
       const yupError = err as ValidationError;
       const errors: Record<string, string> = {};

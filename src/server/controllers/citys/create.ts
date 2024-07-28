@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { object, string } from 'yup';
 import { validation } from '../../shared/middlewares/middlewares';
 
-type city = {
+type City = {
   name: string;
 };
 
@@ -12,10 +12,10 @@ const bodySchema = object().shape({
 });
 
 const createValidator = validation((getSchema) => ({
-  body: getSchema<city>(bodySchema),
+  body: getSchema<City>(bodySchema),
 }));
 
-const create = async (req: Request<{}, {}, city>, res: Response) => {
+const create = async (req: Request<{}, {}, City>, res: Response) => {
   return res.status(StatusCodes.CREATED).json(1);
 };
 

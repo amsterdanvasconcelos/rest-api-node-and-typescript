@@ -3,11 +3,11 @@ import { StatusCodes } from 'http-status-codes';
 import { number, object, string } from 'yup';
 import { validation } from '../../shared/middlewares/middlewares';
 
-type paramsProps = {
+type ParamsProps = {
   id?: number;
 };
 
-type bodyProps = {
+type BodyProps = {
   name: string;
 };
 
@@ -20,12 +20,12 @@ const bodySchema = object().shape({
 });
 
 const updateByIdValidator = validation((getSchema) => ({
-  params: getSchema<paramsProps>(paramsSchema),
-  body: getSchema<bodyProps>(bodySchema),
+  params: getSchema<ParamsProps>(paramsSchema),
+  body: getSchema<BodyProps>(bodySchema),
 }));
 
 const updateById = async (
-  req: Request<paramsProps, {}, bodyProps>,
+  req: Request<ParamsProps, {}, BodyProps>,
   res: Response
 ) => {
   if (Number(req.params.id) === 99999) {

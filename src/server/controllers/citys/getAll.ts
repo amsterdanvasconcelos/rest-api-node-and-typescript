@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { number, object, string } from 'yup';
 import { validation } from '../../shared/middlewares/middlewares';
 
-type queyProps = {
+type QueryProps = {
   page?: number;
   limit?: number;
   filter?: string;
@@ -16,10 +16,10 @@ const querySchema = object().shape({
 });
 
 const getAllValidator = validation((getSchema) => ({
-  query: getSchema<queyProps>(querySchema),
+  query: getSchema<QueryProps>(querySchema),
 }));
 
-const getAll = async (req: Request<{}, {}, {}, queyProps>, res: Response) => {
+const getAll = async (req: Request<{}, {}, {}, QueryProps>, res: Response) => {
   res.setHeader('access-control-expose-headers', 'x-total-count');
   res.setHeader('x-total-count', 1);
 

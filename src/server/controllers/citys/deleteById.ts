@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { number, object } from 'yup';
 import { validation } from '../../shared/middlewares/middlewares';
 
-type paramsProps = {
+type ParamsProps = {
   id?: number;
 };
 
@@ -12,10 +12,10 @@ const paramsSchema = object().shape({
 });
 
 const deleteByIdValidator = validation((getSchema) => ({
-  params: getSchema<paramsProps>(paramsSchema),
+  params: getSchema<ParamsProps>(paramsSchema),
 }));
 
-const deleteById = async (req: Request<paramsProps>, res: Response) => {
+const deleteById = async (req: Request<ParamsProps>, res: Response) => {
   if (Number(req.params.id) === 99999) {
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
       errors: {
