@@ -4,7 +4,7 @@ import * as getAll from './getAll';
 import * as getById from './getById';
 import * as updateById from './updateById';
 
-const citysController = {
+const citiesController = {
   ...create,
   ...getAll,
   ...getById,
@@ -12,4 +12,4 @@ const citysController = {
   ...deleteById,
 };
 
-export { citysController };
+export { citiesController };

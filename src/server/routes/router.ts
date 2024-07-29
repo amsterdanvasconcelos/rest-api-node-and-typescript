@@ -1,30 +1,38 @@
 import { Router } from 'express';
-import { citysController } from '../controllers/controllers';
+import { citiesController } from '../controllers/controllers';
 
 const router = Router();
 
 router.get('/', (_, res) => res.send('Hello, world!'));
 
-router.get('/cities', citysController.getAllValidator, citysController.getAll);
+router.get(
+  '/cities',
+  citiesController.getAllValidator,
+  citiesController.getAll
+);
 
 router.get(
   '/cities/:id',
-  citysController.getByIdValidator,
-  citysController.getById
+  citiesController.getByIdValidator,
+  citiesController.getById
 );
 
-router.post('/cities', citysController.createValidator, citysController.create);
+router.post(
+  '/cities',
+  citiesController.createValidator,
+  citiesController.create
+);
 
 router.put(
   '/cities/:id',
-  citysController.updateByIdValidator,
-  citysController.updateById
+  citiesController.updateByIdValidator,
+  citiesController.updateById
 );
 
 router.delete(
   '/cities/:id',
-  citysController.deleteByIdValidator,
-  citysController.deleteById
+  citiesController.deleteByIdValidator,
+  citiesController.deleteById
 );
 
 export { router };
