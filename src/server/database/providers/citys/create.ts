@@ -10,7 +10,6 @@ const create = async (city: Omit<City, 'id'>): Promise<number | Error> => {
 
     return result;
   } catch (error) {
-    console.log(error);
     return new Error('Error ao cadastrar cidade.');
   }
 };
