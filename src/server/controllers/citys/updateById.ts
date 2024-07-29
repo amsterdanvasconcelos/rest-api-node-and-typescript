@@ -1,15 +1,14 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { number, object, string } from 'yup';
+import { City } from '../../database/models';
 import { validation } from '../../shared/middlewares/middlewares';
 
 type ParamsProps = {
   id?: number;
 };
 
-type BodyProps = {
-  name: string;
-};
+type BodyProps = Omit<City, 'id'>;
 
 const paramsSchema = object().shape({
   id: number().integer().required().moreThan(0),
