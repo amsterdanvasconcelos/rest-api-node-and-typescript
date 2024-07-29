@@ -5,7 +5,7 @@ export async function up(knex: Knex) {
   return knex.schema
     .createTable(TableNames.city, (table) => {
       table.bigIncrements('id').primary().index();
-      table.string('name', 150).index().notNullable();
+      table.string('name', 50).checkLength('<=', 50).index().notNullable();
 
       table.comment('Tabela usada para armazenar cidades.');
     })

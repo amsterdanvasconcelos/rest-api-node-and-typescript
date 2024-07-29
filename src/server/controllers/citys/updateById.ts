@@ -15,7 +15,7 @@ const paramsSchema = object().shape({
 });
 
 const bodySchema = object().shape({
-  name: string().required().min(3),
+  name: string().required().min(3).max(50),
 });
 
 const updateByIdValidator = validation((getSchema) => ({

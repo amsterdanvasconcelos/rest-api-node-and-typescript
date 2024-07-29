@@ -5,14 +5,13 @@ import { TableNames } from '../../TableNames';
 const create = async (city: Omit<City, 'id'>): Promise<number | Error> => {
   try {
     const [result] = await Knex(TableNames.city).insert(city).returning('id');
-    console.log('result create:', result);
 
     if (typeof result === 'object') return result.id;
-    if (typeof result === 'number') return result;
 
-    throw new Error('Error ao cadastrar cidade.');
+    return result;
   } catch (error) {
-    throw new Error('Error ao cadastrar cidade.');
+    console.log(error);
+    return new Error('Error ao cadastrar cidade.');
   }
 };
 
