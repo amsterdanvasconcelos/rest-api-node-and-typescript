@@ -2,7 +2,9 @@ import { Knex } from '../../knex';
 import { City } from '../../models';
 import { TableNames } from '../../TableNames';
 
-const create = async (city: Omit<City, 'id'>): Promise<number | Error> => {
+type Create = (city: Omit<City, 'id'>) => Promise<number | Error>;
+
+const create: Create = async (city) => {
   try {
     const [result] = await Knex(TableNames.city).insert(city).returning('id');
 

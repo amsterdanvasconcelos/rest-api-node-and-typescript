@@ -2,7 +2,9 @@ import { Knex } from '../../knex';
 import { City } from '../../models';
 import { TableNames } from '../../TableNames';
 
-const getById = async (id: number): Promise<City | Error> => {
+type GetById = (id: number) => Promise<City | Error>;
+
+const getById: GetById = async (id) => {
   try {
     const result = await Knex(TableNames.city)
       .select('*')
