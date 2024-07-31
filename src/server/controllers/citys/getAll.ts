@@ -26,13 +26,15 @@ const getAllValidator = validation((getSchema) => ({
 }));
 
 const getAll: GetAll = async (req, res) => {
+  const { page = 1, limit = 10, filter = '', id } = req.query;
+
   const result = await citiesProviders.getAll(
-    req.query.page || 1,
-    req.query.limit || 10,
-    req.query.filter || '',
-    Number(req.query.id)
+    Number(page),
+    Number(limit),
+    filter,
+    Number(id)
   );
-  const count = await citiesProviders.count(req.query.filter || '');
+  const count = await citiesProviders.count(filter);
 
   if (result instanceof Error) {
     return res
@@ -46,7 +48,7 @@ const getAll: GetAll = async (req, res) => {
   }
 
   res.setHeader('access-control-expose-headers', 'x-total-count');
-  res.setHeader('x-total-count', 1);
+  res.setHeader('x-total-count', count);
 
   return res.status(StatusCodes.OK).json(result);
 };

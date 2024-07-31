@@ -31,13 +31,15 @@ const updateByIdValidator = validation((getSchema) => ({
 }));
 
 const updateById: UpdateById = async (req, res) => {
-  if (!req.params.id) {
+  const { id } = req.params;
+
+  if (!id) {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json(getJsonError('O parâmetro "id" precisa ser informado!'));
   }
 
-  const result = await citiesProviders.updateById(req.params.id, req.body);
+  const result = await citiesProviders.updateById(Number(id), req.body);
   if (result instanceof Error) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)

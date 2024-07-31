@@ -20,7 +20,6 @@ const createValidator = validation((getSchema) => ({
 
 const create: Create = async (req, res) => {
   const result = await citiesProviders.create(req.body);
-  console.log('oi:', result);
 
   if (result instanceof Error) {
     return res

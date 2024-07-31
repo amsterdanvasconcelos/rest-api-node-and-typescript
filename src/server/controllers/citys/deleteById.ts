@@ -20,19 +20,15 @@ const deleteByIdValidator = validation((getSchema) => ({
 }));
 
 const deleteById: DeleteById = async (req, res) => {
-  if (!req.params.id) {
+  const { id } = req.params;
+
+  if (!id) {
     return res
       .status(StatusCodes.BAD_REQUEST)
       .json(getJsonError('O parâmetro "id" precisa ser informado!'));
   }
 
-  console.log(
-    'É numero?',
-    typeof req.params.id,
-    typeof req.params.id === 'number'
-  );
-
-  const result = await citiesProviders.deleteById(req.params.id);
+  const result = await citiesProviders.deleteById(Number(id));
   if (result instanceof Error) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)
