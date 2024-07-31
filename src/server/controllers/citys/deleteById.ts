@@ -31,7 +31,6 @@ const deleteById = async (req: Request<ParamsProps>, res: Response) => {
   );
 
   const result = await citiesProviders.deleteById(req.params.id);
-
   if (result instanceof Error) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)

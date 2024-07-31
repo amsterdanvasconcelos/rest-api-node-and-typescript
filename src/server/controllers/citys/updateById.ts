@@ -3,12 +3,19 @@ import { StatusCodes } from 'http-status-codes';
 import { number, object, string } from 'yup';
 import { City } from '../../database/models';
 import { validation } from '../../shared/middlewares/middlewares';
+import { getJsonError } from '../getJsonError';
+import { citiesProviders } from '../../database/providers';
 
 type ParamsProps = {
   id?: number;
 };
 
 type BodyProps = Omit<City, 'id'>;
+
+type UpdateById = (
+  req: Request<ParamsProps, {}, BodyProps>,
+  res: Response
+) => void;
 
 const paramsSchema = object().shape({
   id: number().integer().required().moreThan(0),
@@ -23,16 +30,18 @@ const updateByIdValidator = validation((getSchema) => ({
   body: getSchema<BodyProps>(bodySchema),
 }));
 
-const updateById = async (
-  req: Request<ParamsProps, {}, BodyProps>,
-  res: Response
-) => {
-  if (Number(req.params.id) === 99999) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: {
-        default: 'Registro não encontrado!',
-      },
-    });
+const updateById: UpdateById = async (req, res) => {
+  if (!req.params.id) {
+    return res
+      .status(StatusCodes.BAD_REQUEST)
+      .json(getJsonError('O parâmetro "id" precisa ser informado!'));
+  }
+
+  const result = await citiesProviders.updateById(req.params.id, req.body);
+  if (result instanceof Error) {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(getJsonError(result.message));
   }
 
   return res.status(StatusCodes.NO_CONTENT).send();
