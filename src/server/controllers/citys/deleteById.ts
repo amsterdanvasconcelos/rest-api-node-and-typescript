@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { number, object } from 'yup';
 import { validation } from '../../shared/middlewares/middlewares';
+import { citiesProviders } from '../../database/providers';
+import { getJsonError } from '../getJsonError';
 
 type ParamsProps = {
   id?: number;
@@ -16,12 +18,24 @@ const deleteByIdValidator = validation((getSchema) => ({
 }));
 
 const deleteById = async (req: Request<ParamsProps>, res: Response) => {
-  if (Number(req.params.id) === 99999) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: {
-        default: 'Registro não encontrado!',
-      },
-    });
+  if (!req.params.id) {
+    return res
+      .send(StatusCodes.BAD_REQUEST)
+      .json(getJsonError('O parâmetro "id" precisa ser informado!'));
+  }
+
+  console.log(
+    'É numero?',
+    typeof req.params.id,
+    typeof req.params.id === 'number'
+  );
+
+  const result = await citiesProviders.deleteById(req.params.id);
+
+  if (result instanceof Error) {
+    return res
+      .send(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(getJsonError(result.message));
   }
 
   return res.status(StatusCodes.NO_CONTENT).send();
