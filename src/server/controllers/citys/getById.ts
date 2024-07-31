@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { number, object } from 'yup';
 import { validation } from '../../shared/middlewares/middlewares';
+import { getJsonError } from '../getJsonError';
+import { citiesProviders } from '../../database/providers';
 
 type ParamsProps = {
   id?: number;
@@ -16,17 +18,20 @@ const getByIdValidator = validation((getSchema) => ({
 }));
 
 const getById = async (req: Request<ParamsProps>, res: Response) => {
-  if (Number(req.params.id) === 99999) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: {
-        default: 'Registro não encontrado!',
-      },
-    });
+  if (!req.params.id) {
+    return res
+      .send(StatusCodes.BAD_REQUEST)
+      .json(getJsonError('O parâmetro "id" precisa ser informado!'));
   }
 
-  return res
-    .status(StatusCodes.OK)
-    .json({ id: req.params.id, name: 'fortaleza' });
+  const result = await citiesProviders.getById(req.params.id);
+  if (result instanceof Error) {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(getJsonError(result.message));
+  }
+
+  return res.status(StatusCodes.OK).json(result);
 };
 
 export { getById, getByIdValidator };
