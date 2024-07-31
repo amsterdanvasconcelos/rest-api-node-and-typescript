@@ -1,7 +1,7 @@
 import { Knex } from '../../knex';
 import { TableNames } from '../../TableNames';
 
-type DeleteById = (id: string) => Promise<void | Error>;
+type DeleteById = (id: number) => Promise<void | Error>;
 
 const deleteById: DeleteById = async (id) => {
   try {
