@@ -4,6 +4,7 @@ import { object, string } from 'yup';
 import { City } from '../../database/models';
 import { citiesProviders } from '../../database/providers';
 import { validation } from '../../shared/middlewares/middlewares';
+import { getJsonError } from '../getJsonError';
 
 type BodyProps = Omit<City, 'id'>;
 
@@ -20,11 +21,9 @@ const create = async (req: Request<{}, {}, BodyProps>, res: Response) => {
   console.log('oi:', result);
 
   if (result instanceof Error) {
-    return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      errors: {
-        default: result.message,
-      },
-    });
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(getJsonError(result.message));
   }
 
   return res.status(StatusCodes.CREATED).json(result);
