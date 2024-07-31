@@ -20,7 +20,7 @@ const deleteByIdValidator = validation((getSchema) => ({
 const deleteById = async (req: Request<ParamsProps>, res: Response) => {
   if (!req.params.id) {
     return res
-      .send(StatusCodes.BAD_REQUEST)
+      .status(StatusCodes.BAD_REQUEST)
       .json(getJsonError('O parâmetro "id" precisa ser informado!'));
   }
 
@@ -34,7 +34,7 @@ const deleteById = async (req: Request<ParamsProps>, res: Response) => {
 
   if (result instanceof Error) {
     return res
-      .send(StatusCodes.INTERNAL_SERVER_ERROR)
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
       .json(getJsonError(result.message));
   }
 

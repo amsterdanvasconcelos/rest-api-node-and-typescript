@@ -20,7 +20,7 @@ const getByIdValidator = validation((getSchema) => ({
 const getById = async (req: Request<ParamsProps>, res: Response) => {
   if (!req.params.id) {
     return res
-      .send(StatusCodes.BAD_REQUEST)
+      .status(StatusCodes.BAD_REQUEST)
       .json(getJsonError('O parâmetro "id" precisa ser informado!'));
   }
 
