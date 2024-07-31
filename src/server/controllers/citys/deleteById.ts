@@ -9,6 +9,8 @@ type ParamsProps = {
   id?: number;
 };
 
+type DeleteById = (req: Request<ParamsProps>, res: Response) => void;
+
 const paramsSchema = object().shape({
   id: number().integer().required().moreThan(0),
 });
@@ -17,7 +19,7 @@ const deleteByIdValidator = validation((getSchema) => ({
   params: getSchema<ParamsProps>(paramsSchema),
 }));
 
-const deleteById = async (req: Request<ParamsProps>, res: Response) => {
+const deleteById: DeleteById = async (req, res) => {
   if (!req.params.id) {
     return res
       .status(StatusCodes.BAD_REQUEST)

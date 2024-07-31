@@ -9,6 +9,8 @@ type ParamsProps = {
   id?: number;
 };
 
+type GetById = (req: Request<ParamsProps>, res: Response) => void;
+
 const paramsSchema = object().shape({
   id: number().integer().required().moreThan(0),
 });
@@ -17,7 +19,7 @@ const getByIdValidator = validation((getSchema) => ({
   params: getSchema<ParamsProps>(paramsSchema),
 }));
 
-const getById = async (req: Request<ParamsProps>, res: Response) => {
+const getById: GetById = async (req, res) => {
   if (!req.params.id) {
     return res
       .status(StatusCodes.BAD_REQUEST)

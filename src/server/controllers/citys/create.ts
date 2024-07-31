@@ -8,6 +8,8 @@ import { getJsonError } from '../getJsonError';
 
 type BodyProps = Omit<City, 'id'>;
 
+type Create = (req: Request<{}, {}, BodyProps>, res: Response) => void;
+
 const bodySchema = object().shape({
   name: string().required().min(3).max(50),
 });
@@ -16,7 +18,7 @@ const createValidator = validation((getSchema) => ({
   body: getSchema<BodyProps>(bodySchema),
 }));
 
-const create = async (req: Request<{}, {}, BodyProps>, res: Response) => {
+const create: Create = async (req, res) => {
   const result = await citiesProviders.create(req.body);
   console.log('oi:', result);
 
