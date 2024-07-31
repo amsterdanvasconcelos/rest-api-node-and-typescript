@@ -33,3 +33,5 @@ const getAll: GetAll = async (page, limit, filter, id = 0) => {
     return new Error('Erro ao consultar os registros.');
   }
 };
+
+export { getAll };
