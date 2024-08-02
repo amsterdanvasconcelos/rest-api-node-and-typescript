@@ -9,10 +9,11 @@ const create: Create = async (city) => {
     const [result] = await Knex(TableNames.city).insert(city).returning('id');
 
     if (typeof result === 'object') return result.id;
+    if (typeof result === 'number') return result;
 
-    return result;
+    return new Error('Error ao cadastrar o registro.');
   } catch (error) {
-    return new Error('Error ao cadastrar cidade.');
+    return new Error('Error ao cadastrar o registro.');
   }
 };
 
