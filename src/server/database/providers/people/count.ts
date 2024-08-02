@@ -6,7 +6,7 @@ type Count = (filter: string) => Promise<number | Error>;
 const count: Count = async (filter = '') => {
   try {
     const [{ count }] = await Knex(TableNames.person)
-      .where('name', 'like', `%${filter}%`)
+      .where('fullName', 'like', `%${filter}%`)
       .count<[{ count: number }]>('* as count');
 
     if (Number.isInteger(Number(count))) return Number(count);
