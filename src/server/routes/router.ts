@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { citiesController } from '../controllers/controllers';
+import { citiesController } from '../controllers';
 
 const router = Router();
 
