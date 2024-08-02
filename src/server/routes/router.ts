@@ -1,10 +1,11 @@
 import { Router } from 'express';
-import { citiesController } from '../controllers';
+import { citiesController, peopleController } from '../controllers';
 
 const router = Router();
 
 router.get('/', (_, res) => res.send('Hello, world!'));
 
+/* CITIES */
 router.get(
   '/cities',
   citiesController.getAllValidator,
@@ -33,6 +34,37 @@ router.delete(
   '/cities/:id',
   citiesController.deleteByIdValidator,
   citiesController.deleteById
+);
+
+/* PEOPLE */
+router.get(
+  '/people',
+  peopleController.getAllValidator,
+  peopleController.getAll
+);
+
+router.get(
+  '/people/:id',
+  peopleController.getByIdValidator,
+  peopleController.getById
+);
+
+router.post(
+  '/people',
+  peopleController.createValidator,
+  peopleController.create
+);
+
+router.put(
+  '/people/:id',
+  peopleController.updateByIdValidator,
+  peopleController.updateById
+);
+
+router.delete(
+  '/people/:id',
+  peopleController.deleteByIdValidator,
+  peopleController.deleteById
 );
 
 export { router };
