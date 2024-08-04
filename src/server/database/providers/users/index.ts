@@ -1,9 +1,9 @@
 import * as create from './create';
 import * as getByEmail from './getByEmail';
 
-const userProvider = {
+const usersProvider = {
   ...create,
   ...getByEmail,
 };
 
-export { userProvider };
+export { usersProvider };

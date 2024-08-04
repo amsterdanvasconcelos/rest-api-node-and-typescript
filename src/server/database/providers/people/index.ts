@@ -5,7 +5,7 @@ import * as updateById from './updateById';
 import * as deleteById from './deleteById';
 import * as count from './count';
 
-const peopleProviders = {
+const peopleProvider = {
   ...create,
   ...getAll,
   ...getById,
@@ -14,4 +14,4 @@ const peopleProviders = {
   ...count,
 };
 
-export { peopleProviders };
+export { peopleProvider };
