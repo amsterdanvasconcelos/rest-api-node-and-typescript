@@ -1,10 +1,11 @@
 import 'dotenv/config';
 import express from 'express';
-import { router } from './routes/router';
+import { cities, people } from './routes';
 
 const server = express();
 
 server.use(express.json());
-server.use(router);
+server.use(cities.router);
+server.use(people.router);
 
 export { server };
