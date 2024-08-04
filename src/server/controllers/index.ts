@@ -1,2 +1,2 @@
-export * from './citys';
+export * from './cities';
 export * from './people';
