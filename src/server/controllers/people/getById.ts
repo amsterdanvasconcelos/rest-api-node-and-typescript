@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { number, object } from 'yup';
 import { validation } from '../../shared/middlewares/middlewares';
 import { getJsonError } from '../getJsonError';
-import { peopleProviders } from '../../database/providers';
+import { peopleProvider } from '../../database/providers';
 
 type ParamsProps = {
   id?: number;
@@ -28,7 +28,7 @@ const getById: GetById = async (req, res) => {
       .json(getJsonError('O parâmetro "id" precisa ser informado!'));
   }
 
-  const result = await peopleProviders.getById(Number(id));
+  const result = await peopleProvider.getById(Number(id));
   if (result instanceof Error) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)

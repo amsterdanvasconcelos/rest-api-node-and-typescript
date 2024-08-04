@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { object, string } from 'yup';
 import { City } from '../../database/models';
-import { citiesProviders } from '../../database/providers';
+import { citiesProvider } from '../../database/providers';
 import { validation } from '../../shared/middlewares/middlewares';
 import { getJsonError } from '../getJsonError';
 
@@ -19,7 +19,7 @@ const createValidator = validation((getSchema) => ({
 }));
 
 const create: Create = async (req, res) => {
-  const result = await citiesProviders.create(req.body);
+  const result = await citiesProvider.create(req.body);
 
   if (result instanceof Error) {
     return res

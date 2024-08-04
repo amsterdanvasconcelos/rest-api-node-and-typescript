@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { number, object, string } from 'yup';
-import { citiesProviders } from '../../database/providers';
+import { citiesProvider } from '../../database/providers';
 import { getJsonError } from '../getJsonError';
 import { validation } from '../../shared/middlewares/middlewares';
 
@@ -28,13 +28,13 @@ const getAllValidator = validation((getSchema) => ({
 const getAll: GetAll = async (req, res) => {
   const { page = 1, limit = 10, filter = '', id } = req.query;
 
-  const result = await citiesProviders.getAll(
+  const result = await citiesProvider.getAll(
     Number(page),
     Number(limit),
     filter,
     Number(id)
   );
-  const count = await citiesProviders.count(filter);
+  const count = await citiesProvider.count(filter);
 
   if (result instanceof Error) {
     return res

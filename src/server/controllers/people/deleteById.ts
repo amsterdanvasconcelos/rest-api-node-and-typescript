@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { number, object } from 'yup';
 import { validation } from '../../shared/middlewares/middlewares';
-import { peopleProviders } from '../../database/providers';
+import { peopleProvider } from '../../database/providers';
 import { getJsonError } from '../getJsonError';
 
 type ParamsProps = {
@@ -28,7 +28,7 @@ const deleteById: DeleteById = async (req, res) => {
       .json(getJsonError('O parâmetro "id" precisa ser informado!'));
   }
 
-  const result = await peopleProviders.deleteById(Number(id));
+  const result = await peopleProvider.deleteById(Number(id));
   if (result instanceof Error) {
     return res
       .status(StatusCodes.INTERNAL_SERVER_ERROR)

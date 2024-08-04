@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { number, object, string } from 'yup';
 import { Person } from '../../database/models';
-import { peopleProviders } from '../../database/providers';
+import { peopleProvider } from '../../database/providers';
 import { validation } from '../../shared/middlewares/middlewares';
 import { getJsonError } from '../getJsonError';
 
@@ -21,7 +21,7 @@ const createValidator = validation((getSchema) => ({
 }));
 
 const create: Create = async (req, res) => {
-  const result = await peopleProviders.create(req.body);
+  const result = await peopleProvider.create(req.body);
 
   if (result instanceof Error) {
     return res
