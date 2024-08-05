@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { number, object } from 'yup';
-import { validation } from '../../shared/middlewares/middlewares';
+import { validation } from '../../shared/middlewares';
 import { citiesProvider } from '../../database/providers';
 import { getJsonError } from '../getJsonError';
 

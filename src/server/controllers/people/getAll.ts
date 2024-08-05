@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { number, object, string } from 'yup';
 import { peopleProvider } from '../../database/providers';
 import { getJsonError } from '../getJsonError';
-import { validation } from '../../shared/middlewares/middlewares';
+import { validation } from '../../shared/middlewares';
 
 type QueryProps = {
   page?: number;

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import { number, object, string } from 'yup';
 import { City } from '../../database/models';
-import { validation } from '../../shared/middlewares/middlewares';
+import { validation } from '../../shared/middlewares';
 import { getJsonError } from '../getJsonError';
 import { citiesProvider } from '../../database/providers';
 

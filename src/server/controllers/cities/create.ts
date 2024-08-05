@@ -3,7 +3,7 @@ import { StatusCodes } from 'http-status-codes';
 import { object, string } from 'yup';
 import { City } from '../../database/models';
 import { citiesProvider } from '../../database/providers';
-import { validation } from '../../shared/middlewares/middlewares';
+import { validation } from '../../shared/middlewares';
 import { getJsonError } from '../getJsonError';
 
 type BodyProps = Omit<City, 'id'>;
