@@ -5,6 +5,7 @@ import { usersProvider } from '../../database/providers/users';
 import { validation } from '../../shared/middlewares/validation';
 import { User } from '../../database/models';
 import { getJsonError } from '../getJsonError';
+import { passwordCrypto } from '../../shared/services/passwordCrypto';
 
 type BodyProps = Omit<User, 'id' | 'name'>;
 
@@ -30,7 +31,12 @@ const signIn: SignIn = async (req, res) => {
       .json(getJsonError('Email ou senha inválido.'));
   }
 
-  if (password !== result.password) {
+  const passwordMatched: boolean = await passwordCrypto.verifyPassword(
+    password,
+    result.password
+  );
+
+  if (passwordMatched !== true) {
     return res
       .status(StatusCodes.UNAUTHORIZED)
       .json(getJsonError('Email ou senha inválido.'));
