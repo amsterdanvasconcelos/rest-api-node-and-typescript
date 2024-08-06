@@ -1,4 +1,4 @@
-import { passwordCrypto } from '../../../shared/services/passwordCrypto';
+import { passwordCrypto } from '../../../shared/services';
 import { Knex } from '../../knex';
 import { User } from '../../models';
 import { TableNames } from '../../TableNames';

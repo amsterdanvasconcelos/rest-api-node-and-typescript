@@ -5,7 +5,7 @@ import { usersProvider } from '../../database/providers/users';
 import { validation } from '../../shared/middlewares/validation';
 import { User } from '../../database/models';
 import { getJsonError } from '../getJsonError';
-import { passwordCrypto } from '../../shared/services/passwordCrypto';
+import { jwtService, passwordCrypto } from '../../shared/services';
 
 type BodyProps = Omit<User, 'id' | 'name'>;
 
@@ -42,7 +42,14 @@ const signIn: SignIn = async (req, res) => {
       .json(getJsonError('Email ou senha inválido.'));
   }
 
-  return res.status(StatusCodes.OK).json({ accessToken: 'test.test.test' });
+  const accessToken = jwtService.sign({ uid: result.id });
+  if (accessToken === 'JWT_SECRET_NOT_FOUND') {
+    return res
+      .status(StatusCodes.INTERNAL_SERVER_ERROR)
+      .json(getJsonError('Erro ao gerar o token de acesso.'));
+  }
+
+  return res.status(StatusCodes.OK).json({ accessToken });
 };
 
 export { signInValidator, signIn };
