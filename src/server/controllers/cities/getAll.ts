@@ -26,7 +26,7 @@ const getAllValidator = validation((getSchema) => ({
 }));
 
 const getAll: GetAll = async (req, res) => {
-  const { page = 1, limit = 10, filter = '', id } = req.query;
+  const { page = 1, limit = 10, filter = '', id = 0 } = req.query;
 
   const result = await citiesProvider.getAll(
     Number(page),

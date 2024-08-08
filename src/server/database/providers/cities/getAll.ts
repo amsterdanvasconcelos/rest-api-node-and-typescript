@@ -9,7 +9,7 @@ type GetAll = (
   id: number
 ) => Promise<City[] | Error>;
 
-const getAll: GetAll = async (page, limit, filter, id = 0) => {
+const getAll: GetAll = async (page, limit, filter, id) => {
   try {
     const result = await Knex(TableNames.city)
       .select('*')
