@@ -7,6 +7,15 @@ type Create = (user: Omit<User, 'id'>) => Promise<number | Error>;
 
 const create: Create = async (user) => {
   try {
+    const response = await Knex(TableNames.user)
+      .select('*')
+      .where('email', '=', user.email)
+      .first();
+
+    if (response) {
+      return new Error('Já existe um usuário utilizando este email.');
+    }
+
     const hashedPassword = await passwordCrypto.hashPassword(user.password);
 
     const [result] = await Knex(TableNames.user)
