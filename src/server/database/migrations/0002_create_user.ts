@@ -16,11 +16,7 @@ export async function up(knex: Knex) {
         .unique()
         .index()
         .notNullable();
-      table
-        .string('password', 50)
-        .checkLength('<=', 50)
-        .checkLength('>=', 6)
-        .notNullable();
+      table.string('password').checkLength('>=', 6).notNullable();
 
       table.comment('Tabela usada para armazenar usuários.');
     })
